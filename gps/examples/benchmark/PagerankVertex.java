@@ -39,9 +39,7 @@ public class PagerankVertex extends
 
 	@Override
 	public void compute(Iterable<DoubleWritable> messageValues, int superstepNo) {
-		int numVertices = ((IntSumGlobalObject) getGlobalObjectsMap()
-				.getGlobalObject(GlobalObjectsMap.NUM_TOTAL_VERTICES))
-				.getValue().getValue();
+		int numVertices = 52579682;//((IntSumGlobalObject) getGlobalObjectsMap().getGlobalObject(GlobalObjectsMap.NUM_TOTAL_VERTICES)).getValue().getValue();
 		double PRValue = 0;
 		if (superstepNo == 1) {
 			setValue(new DoubleWritable(1.0 / numVertices));
