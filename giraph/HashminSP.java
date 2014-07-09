@@ -23,13 +23,6 @@ public class HashminSP extends
     @Override
     public void compute(Iterable<IntWritable> messages) throws IOException {
 
-	if (getSuperstep() == 50) {
-	    System.out.println("vid: " + getId().get() + " value "
-		    + getValue().get());
-	    voteToHalt();
-	    return;
-	}
-
 	if (getValue().get() == -1) {
 	    voteToHalt();
 	    return;
