@@ -93,4 +93,5 @@ public class BMM extends
 	if (value.getLeft() == 0) // right vote to halt
 	    voteToHalt();
     }
+    
 }
