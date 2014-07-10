@@ -44,7 +44,7 @@ public class ConnectedComponentsSinglePivotVertex extends
 		Phase phase = Phase
 				.getComputationStageFromId(((IntWritable) getGlobalObjectsMap()
 						.getGlobalObject("phase").getValue()).getValue());
-		
+
 		int min = getValue().getValue();
 		switch (phase) {
 		case BFS:
@@ -59,8 +59,7 @@ public class ConnectedComponentsSinglePivotVertex extends
 				}
 
 			} else {
-				if(getValue().getValue() == -1)
-				{
+				if (getValue().getValue() == -1) {
 					voteToHalt();
 					return;
 				}
@@ -82,7 +81,7 @@ public class ConnectedComponentsSinglePivotVertex extends
 			sendMessages(getNeighborIds(), new IntWritable(min));
 			return;
 		case HASHMIN_REST:
-			
+
 			for (IntWritable msg : messageValues) {
 				min = Math.min(min, msg.getValue());
 			}

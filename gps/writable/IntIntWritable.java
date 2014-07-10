@@ -32,7 +32,6 @@ public class IntIntWritable extends MinaWritable {
 		this.intValue = ioBuffer.getInt();
 	}
 
-
 	@Override
 	public int read(IoBuffer ioBuffer, byte[] byteArray, int index) {
 		ioBuffer.get(byteArray, index, 4);
@@ -43,7 +42,7 @@ public class IntIntWritable extends MinaWritable {
 	public int getIntKey() {
 		return intKey;
 	}
-	
+
 	public int getIntValue() {
 		return intValue;
 	}
@@ -56,7 +55,7 @@ public class IntIntWritable extends MinaWritable {
 	@Override
 	public int read(byte[] byteArray, int index) {
 		this.intKey = readIntegerFromByteArray(byteArray, index);
-		this.intValue =  readIntegerFromByteArray(byteArray, index+4);
+		this.intValue = readIntegerFromByteArray(byteArray, index + 4);
 		return 8;
 	}
 }

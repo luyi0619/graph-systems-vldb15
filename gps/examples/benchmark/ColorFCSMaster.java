@@ -65,16 +65,18 @@ public class ColorFCSMaster extends Master {
 		case FCS1:
 			NullValueGraphWritable graph = (NullValueGraphWritable) getGlobalObjectsMap()
 					.getGlobalObject("graph").getValue();
-			
-			System.out.println("############## Graph Size : " + graph.nodes.size());
-			
+
+			System.out.println("############## Graph Size : "
+					+ graph.nodes.size());
+
 			Map<Integer, Integer> resultColors = performSerialColoring(graph,
 					superstepNo);
 			clearGlobalObjectsAndSetPhase(Phase.FCS2);
 			getGlobalObjectsMap().putGlobalObject("result",
 					new IntegerIntegerSumMapGObj(resultColors));
-			
-			System.out.println("############## Result Size : " + resultColors.size());
+
+			System.out.println("############## Result Size : "
+					+ resultColors.size());
 			return;
 		case FCS2:
 			terminateIfNumActiveVerticesIsZero();

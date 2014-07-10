@@ -20,7 +20,7 @@ import gps.writable.IntWritable;
  */
 public class ColorECODMaster extends Master {
 	public static int GRAPH_VERTICES;
-	
+
 	public ColorECODMaster(CommandLine line) {
 		String otherOptsStr = line
 				.getOptionValue(GPSNodeRunner.OTHER_OPTS_OPT_NAME);
@@ -60,7 +60,8 @@ public class ColorECODMaster extends Master {
 			int active = ((IntWritable) getGlobalObjectsMap().getGlobalObject(
 					"RemainToColor").getValue()).getValue();
 			System.out.println("RemainToColor: " + active);
-			if (superstepNo > 2 && superstepNo % 3 == 2 && active < GRAPH_VERTICES * 0.01 ) {
+			if (superstepNo > 2 && superstepNo % 3 == 2
+					&& active < GRAPH_VERTICES * 0.01) {
 				clearGlobalObjectsAndSetPhase(Phase.RECOVERY1);
 			} else {
 				clearGlobalObjectsAndSetPhase(Phase.COLOR_ECOD);

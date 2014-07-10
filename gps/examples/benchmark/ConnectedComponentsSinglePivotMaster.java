@@ -42,7 +42,7 @@ public class ConnectedComponentsSinglePivotMaster extends Master {
 		case BFS:
 			int active = ((IntWritable) getGlobalObjectsMap().getGlobalObject(
 					"bfsactive").getValue()).getValue();
-			System.out.println("bfsactive: " +active);
+			System.out.println("bfsactive: " + active);
 			if (active == 0) {
 				clearGlobalObjectsAndSetPhase(Phase.HASHMIN_ROUND1);
 			} else {

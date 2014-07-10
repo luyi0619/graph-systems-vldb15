@@ -16,10 +16,8 @@ import gps.examples.benchmark.ColorECODPhase.Phase;
 
 public class ColorECODVertex extends NullEdgeVertex<IntWritable, IntWritable> {
 
-
 	public ColorECODVertex(CommandLine line) {
-		
-		
+
 	}
 
 	public Random rand = new Random();
@@ -34,15 +32,13 @@ public class ColorECODVertex extends NullEdgeVertex<IntWritable, IntWritable> {
 			sendMessage(ids[i], new IntWritable(value));
 		}
 	}
-	
-	void cleanbymsg(Iterable<IntWritable> messageValues)
-	{
+
+	void cleanbymsg(Iterable<IntWritable> messageValues) {
 		TreeSet<Integer> m = new TreeSet<Integer>();
 		for (IntWritable msg : messageValues) {
 			m.add(msg.getValue());
 		}
-		int old_nbs[] = Arrays.copyOf(getNeighborIds(),
-				getNeighborsSize());
+		int old_nbs[] = Arrays.copyOf(getNeighborIds(), getNeighborsSize());
 		removeEdges();
 		for (int e : old_nbs) {
 			if (m.contains(e) == false) {
@@ -64,8 +60,7 @@ public class ColorECODVertex extends NullEdgeVertex<IntWritable, IntWritable> {
 
 		switch (phase) {
 		case COLOR_ECOD:
-			if(getValue().getValue() >= 0)
-			{
+			if (getValue().getValue() >= 0) {
 				return;
 			}
 			if (superstepNo % 3 == 2) {
@@ -87,8 +82,7 @@ public class ColorECODVertex extends NullEdgeVertex<IntWritable, IntWritable> {
 				if (getValue().getValue() == -1) {
 					return;
 				}
-				if(getValue().getValue() >= 0)
-				{
+				if (getValue().getValue() >= 0) {
 					for (IntWritable msg : messageValues) {
 						int m = msg.getValue();
 						sendMessage(m, new IntWritable(getId()));
@@ -106,22 +100,20 @@ public class ColorECODVertex extends NullEdgeVertex<IntWritable, IntWritable> {
 					setValue(new IntWritable(-1));
 				} else {
 					setValue(new IntWritable(superstepNo / 3));
-					//sendToAllnbs(getId());
-					//voteToHalt();
-					//removeEdges();
+					// sendToAllnbs(getId());
+					// voteToHalt();
+					// removeEdges();
 				}
 			} else if (superstepNo % 3 == 1) {
 				cleanbymsg(messageValues);
-				if(getValue().getValue() < 0)
-				{
-					getGlobalObjectsMap().putOrUpdateGlobalObject("RemainToColor",
-							new IntSumGlobalObject(1));
+				if (getValue().getValue() < 0) {
+					getGlobalObjectsMap().putOrUpdateGlobalObject(
+							"RemainToColor", new IntSumGlobalObject(1));
 				}
 			}
 			return;
 		case RECOVERY1:
-			if(getValue().getValue() >= 0)
-			{
+			if (getValue().getValue() >= 0) {
 				sendToAllnbs(getId());
 				removeEdges();
 				voteToHalt();
@@ -129,8 +121,7 @@ public class ColorECODVertex extends NullEdgeVertex<IntWritable, IntWritable> {
 			return;
 		case RECOVERY2:
 			cleanbymsg(messageValues);
-			if(getValue().getValue() >= 0)
-			{
+			if (getValue().getValue() >= 0) {
 				voteToHalt();
 			}
 			return;

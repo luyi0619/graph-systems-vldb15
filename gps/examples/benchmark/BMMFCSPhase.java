@@ -3,9 +3,9 @@ package gps.examples.benchmark;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ColorECODPhase {
+public class BMMFCSPhase {
 	public static enum Phase {
-		COLOR_ECOD(0), RECOVERY1(1), RECOVERY2(2), COLOR(3);
+		BMM(0), BMM1(1), BMM2(2), BMM3(3);
 
 		private static Map<Integer, Phase> idComputationStateMap = new HashMap<Integer, Phase>();
 		static {

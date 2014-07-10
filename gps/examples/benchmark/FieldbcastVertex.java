@@ -12,7 +12,8 @@ import gps.writable.IntWritable;
 
 import org.apache.commons.cli.CommandLine;
 
-public class FieldbcastVertex extends Vertex<IntWritable, IntWritable, IntIntWritable> {
+public class FieldbcastVertex extends
+		Vertex<IntWritable, IntWritable, IntIntWritable> {
 
 	private static boolean DEFAULT_DIRECTED = true;
 	private boolean DIRECTED;
@@ -37,54 +38,41 @@ public class FieldbcastVertex extends Vertex<IntWritable, IntWritable, IntIntWri
 
 	@Override
 	public void compute(Iterable<IntIntWritable> messageValues, int superstepNo) {
-		if (DIRECTED)
-		{
+		if (DIRECTED) {
 
-			if (superstepNo == 1)
-			{
+			if (superstepNo == 1) {
 				// request
-				
-				for(Edge<IntWritable> e : getOutgoingEdges())
-				{
-					sendMessage(e.getNeighborId(), new IntIntWritable(getId(), -1));
+
+				for (Edge<IntWritable> e : getOutgoingEdges()) {
+					sendMessage(e.getNeighborId(), new IntIntWritable(getId(),
+							-1));
 				}
 				voteToHalt();
-			}
-			else if (superstepNo == 2)
-			{
+			} else if (superstepNo == 2) {
 				// respond
-				for (IntIntWritable msg : messageValues)
-				{
-					sendMessage(msg.intKey, new IntIntWritable(getId(), getValue().getValue()));
+				for (IntIntWritable msg : messageValues) {
+					sendMessage(msg.intKey, new IntIntWritable(getId(),
+							getValue().getValue()));
 				}
 				voteToHalt();
-			}
-			else
-			{
+			} else {
 				removeEdges();
-				for (IntIntWritable msg : messageValues)
-				{
+				for (IntIntWritable msg : messageValues) {
 					this.addEdge(msg.intKey, new IntWritable(msg.intValue));
 				}
 				voteToHalt();
 			}
-		}
-		else
-		{
-			if (superstepNo == 1)
-			{
+		} else {
+			if (superstepNo == 1) {
 				// respond
-				for (IntIntWritable msg : messageValues)
-				{
-					sendMessage(msg.intKey, new IntIntWritable(getId(), getValue().getValue()));
+				for (IntIntWritable msg : messageValues) {
+					sendMessage(msg.intKey, new IntIntWritable(getId(),
+							getValue().getValue()));
 				}
 				voteToHalt();
-			}
-			else
-			{
+			} else {
 				removeEdges();
-				for (IntIntWritable msg : messageValues)
-				{
+				for (IntIntWritable msg : messageValues) {
 					this.addEdge(msg.intKey, new IntWritable(msg.intValue));
 				}
 				voteToHalt();
@@ -102,7 +90,8 @@ public class FieldbcastVertex extends Vertex<IntWritable, IntWritable, IntIntWri
 	 * 
 	 * @author Yi Lu
 	 */
-	public static class FieldbcastVertexFactory extends VertexFactory<IntWritable, IntWritable, IntIntWritable> {
+	public static class FieldbcastVertexFactory extends
+			VertexFactory<IntWritable, IntWritable, IntIntWritable> {
 
 		@Override
 		public Vertex<IntWritable, IntWritable, IntIntWritable> newInstance(
@@ -132,10 +121,10 @@ public class FieldbcastVertex extends Vertex<IntWritable, IntWritable, IntIntWri
 		public Class<?> getMessageValueClass() {
 			return IntIntWritable.class;
 		}
-		@Override 
-		public boolean hasVertexValuesInInput() 
-		{
-		    return true;
+
+		@Override
+		public boolean hasVertexValuesInInput() {
+			return true;
 		}
 	}
 }

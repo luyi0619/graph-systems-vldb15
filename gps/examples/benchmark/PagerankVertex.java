@@ -1,6 +1,5 @@
 package gps.examples.benchmark;
 
-
 import gps.globalobjects.GlobalObjectsMap;
 import gps.globalobjects.IntSumGlobalObject;
 
@@ -39,13 +38,13 @@ public class PagerankVertex extends
 
 	@Override
 	public void compute(Iterable<DoubleWritable> messageValues, int superstepNo) {
-		int numVertices = 52579682;//((IntSumGlobalObject) getGlobalObjectsMap().getGlobalObject(GlobalObjectsMap.NUM_TOTAL_VERTICES)).getValue().getValue();
+		int numVertices = ((IntSumGlobalObject) getGlobalObjectsMap()
+				.getGlobalObject(GlobalObjectsMap.NUM_TOTAL_VERTICES))
+				.getValue().getValue();
 		double PRValue = 0;
 		if (superstepNo == 1) {
 			setValue(new DoubleWritable(1.0 / numVertices));
-		}
-		else
-		{
+		} else {
 			double sum = 0;
 			for (DoubleWritable msg : messageValues) {
 				sum += msg.getValue();
@@ -102,10 +101,10 @@ public class PagerankVertex extends
 		public Class<?> getMessageValueClass() {
 			return DoubleWritable.class;
 		}
-		@Override 
-		public boolean hasVertexValuesInInput() 
-		{
-		    return true;
+
+		@Override
+		public boolean hasVertexValuesInInput() {
+			return true;
 		}
 	}
 }

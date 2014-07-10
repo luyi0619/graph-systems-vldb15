@@ -3,8 +3,10 @@ package gps.examples.benchmark;
 import org.apache.commons.cli.CommandLine;
 
 import gps.globalobjects.BooleanANDGlobalObject;
+import gps.globalobjects.IntSumGlobalObject;
 import gps.graph.Master;
-import gps.writable.BooleanWritable;
+
+import gps.writable.IntWritable;
 
 /**
  * Master class for the extended sssp algorithm. It coordinates the flow of the
@@ -13,25 +15,26 @@ import gps.writable.BooleanWritable;
  * 
  * @author semihsalihoglu
  */
-public class SVMaster extends Master {
-	public SVMaster(CommandLine line) {
-		java.util.HashMap<String, String> arg_map = new java.util.HashMap<String, String>();
-		gps.node.Utils.parseOtherOptions(line, arg_map);
+public class BMMMaster extends Master {
+	public BMMMaster(CommandLine line) {
+
 	}
 
 	@Override
 	public void compute(int superstepNo) {
-		int cycle = 14;
-		if (superstepNo % cycle == 3) {
-			boolean star = ((BooleanWritable) getGlobalObjectsMap()
-					.getGlobalObject("Star").getValue()).getValue();
-			if (star) {
+
+		if (superstepNo > 1) {
+			int sum = ((IntWritable) getGlobalObjectsMap().getGlobalObject(
+					"active").getValue()).getValue();
+			System.out.println("Step: " + superstepNo + " active: " + sum);
+			if (sum == 0) {
 				this.terminateComputation();
 			}
 		}
+
 		getGlobalObjectsMap().clearNonDefaultObjects();
-		getGlobalObjectsMap().putGlobalObject("Star",
-				new BooleanANDGlobalObject(true));
+		getGlobalObjectsMap().putGlobalObject("active",
+				new IntSumGlobalObject(0));
 
 	}
 
