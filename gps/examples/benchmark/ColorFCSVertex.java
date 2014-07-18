@@ -7,7 +7,7 @@ import java.util.TreeSet;
 
 import org.apache.commons.cli.CommandLine;
 
-import gps.globalobjects.IntSumGlobalObject;
+import gps.globalobjects.LongSumGlobalObject;
 import gps.globalobjects.NullValueGraphGObj;
 import gps.graph.NullEdgeVertex;
 import gps.graph.NullEdgeVertexFactory;
@@ -104,7 +104,7 @@ public class ColorFCSVertex extends NullEdgeVertex<IntWritable, IntWritable> {
 				if (getValue().getValue() < 0) {
 					getGlobalObjectsMap().putOrUpdateGlobalObject(
 							"activeedges",
-							new IntSumGlobalObject(getNeighborsSize()));
+							new LongSumGlobalObject((long)getNeighborsSize()));
 				}
 			}
 			return;

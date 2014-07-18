@@ -7,6 +7,7 @@ import gps.globalobjects.BooleanOrGlobalObject;
 import gps.globalobjects.IntOverwriteGlobalObject;
 import gps.globalobjects.IntSumGlobalObject;
 import gps.graph.Master;
+import gps.node.GPSNodeRunner;
 import gps.writable.BooleanWritable;
 import gps.writable.IntWritable;
 
@@ -18,9 +19,23 @@ import gps.writable.IntWritable;
  * @author semihsalihoglu
  */
 public class ConnectedComponentsSinglePivotMaster extends Master {
+	private static int DEFAULT_SOURCE = 0;
 	public ConnectedComponentsSinglePivotMaster(CommandLine line) {
-		java.util.HashMap<String, String> arg_map = new java.util.HashMap<String, String>();
-		gps.node.Utils.parseOtherOptions(line, arg_map);
+		String otherOptsStr = line
+				.getOptionValue(GPSNodeRunner.OTHER_OPTS_OPT_NAME);
+		System.out.println("otherOptsStr: " + otherOptsStr);
+		ConnectedComponentsSinglePivotVertex.BFS_SOURCE = DEFAULT_SOURCE;
+		if (otherOptsStr != null) {
+			String[] split = otherOptsStr.split("###");
+			for (int index = 0; index < split.length;) {
+				String flag = split[index++];
+				String value = split[index++];
+				if ("-nsource".equals(flag)) {
+					ConnectedComponentsSinglePivotVertex.BFS_SOURCE = Integer.parseInt(value);
+					System.out.println("bfsSOURCE: " + ConnectedComponentsSinglePivotVertex.BFS_SOURCE);
+				}
+			}
+		}
 	}
 
 	@Override

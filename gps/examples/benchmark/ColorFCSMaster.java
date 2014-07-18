@@ -11,12 +11,13 @@ import org.apache.commons.cli.CommandLine;
 import gps.examples.benchmark.ColorFCSPhase.Phase;
 import gps.globalobjects.BooleanOrGlobalObject;
 import gps.globalobjects.IntOverwriteGlobalObject;
-import gps.globalobjects.IntSumGlobalObject;
+import gps.globalobjects.LongSumGlobalObject;
 import gps.globalobjects.IntegerIntegerSumMapGObj;
 import gps.graph.Master;
 import gps.node.GPSNodeRunner;
 import gps.writable.BooleanWritable;
 import gps.writable.IntWritable;
+import gps.writable.LongWritable;
 import gps.writable.NodeWritable;
 import gps.writable.NullValueGraphWritable;
 
@@ -28,7 +29,7 @@ import gps.writable.NullValueGraphWritable;
  * @author semihsalihoglu
  */
 public class ColorFCSMaster extends Master {
-	public static int GRAPH_EDGES = 5000000;
+	public static long GRAPH_EDGES = 5000000;
 
 	public ColorFCSMaster(CommandLine line) {
 
@@ -40,7 +41,7 @@ public class ColorFCSMaster extends Master {
 		if (superstepNo == 1) {
 			clearGlobalObjectsAndSetPhase(Phase.COLOR);
 			getGlobalObjectsMap().putGlobalObject("activeedges",
-					new IntSumGlobalObject(0));
+					new LongSumGlobalObject(0L));
 			return;
 		}
 
@@ -51,7 +52,7 @@ public class ColorFCSMaster extends Master {
 
 		switch (previousComputationStage) {
 		case COLOR:
-			int active = ((IntWritable) getGlobalObjectsMap().getGlobalObject(
+			long active = ((LongWritable) getGlobalObjectsMap().getGlobalObject(
 					"activeedges").getValue()).getValue();
 			System.out.println("activeEdges: " + active);
 			if (superstepNo > 2 && superstepNo % 3 == 2 && active < GRAPH_EDGES) {
@@ -59,7 +60,7 @@ public class ColorFCSMaster extends Master {
 			} else {
 				clearGlobalObjectsAndSetPhase(Phase.COLOR);
 				getGlobalObjectsMap().putGlobalObject("activeedges",
-						new IntSumGlobalObject(0));
+						new LongSumGlobalObject(0L));
 			}
 			return;
 		case FCS1:

@@ -17,25 +17,11 @@ import gps.writable.NullWritable;
 
 public class ConnectedComponentsSinglePivotVertex extends
 		NullEdgeVertex<IntWritable, IntWritable> {
-	private static int DEFAULT_SOURCE = 0;
-	private int BFS_SOURCE;
+
+	public static int BFS_SOURCE;
 
 	public ConnectedComponentsSinglePivotVertex(CommandLine line) {
-		String otherOptsStr = line
-				.getOptionValue(GPSNodeRunner.OTHER_OPTS_OPT_NAME);
-		System.out.println("otherOptsStr: " + otherOptsStr);
-		BFS_SOURCE = DEFAULT_SOURCE;
-		if (otherOptsStr != null) {
-			String[] split = otherOptsStr.split("###");
-			for (int index = 0; index < split.length;) {
-				String flag = split[index++];
-				String value = split[index++];
-				if ("-nsource".equals(flag)) {
-					BFS_SOURCE = Integer.parseInt(value);
-					System.out.println("bfsSOURCE: " + BFS_SOURCE);
-				}
-			}
-		}
+		
 	}
 
 	@Override
