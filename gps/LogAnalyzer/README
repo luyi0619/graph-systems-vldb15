@@ -1,0 +1,1 @@
+mpic++ LogAnalyzer.cpp -o LogAnalyzer -L/usr/local/boost/lib/ -lboost_mpi -lboost_serialization
